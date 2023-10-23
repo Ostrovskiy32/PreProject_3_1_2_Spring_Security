@@ -6,18 +6,34 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+<<<<<<< HEAD
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.service.UserServices;
 
+=======
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import ru.kata.spring.boot_security.demo.servise.UserService;
+>>>>>>> 6435524 (first commit)
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
+<<<<<<< HEAD
     private final UserServices userService;
 
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserServices userService) {
+=======
+    private final UserService userService;
+
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserService userService) {
+>>>>>>> 6435524 (first commit)
         this.successUserHandler = successUserHandler;
         this.userService = userService;
     }

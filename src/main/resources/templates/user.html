@@ -45,7 +45,11 @@
     <td th:utext="${user.citizenship}">Citizenship</td>
     <td th:utext="${user.username}">Username</td>
     <td th:utext="${user.password}">Password</td>
+<<<<<<< HEAD
     <td th:each="role: ${user.getRoles()}" th:utext="${role.roleName}">role</td>
+=======
+    <td th:each="role: ${user.getRoles()}" th:utext="${role.getRole()}">role</td>
+>>>>>>> 6435524 (first commit)
 
 </table>
 

@@ -27,7 +27,7 @@
 </head>
 <body>
 <h1>Add user</h1>
-<form action="#" method="POST" th:action="@{/admin/new}","@{/admin/edite}"  th:object="${user}">
+<form action="#" method="POST" th:action="@{/admin/new}" th:object="${user}">
     <table>
         <tr>
             <td>
@@ -75,9 +75,15 @@
             <td>
                 <label>Select role:
                     <input type="checkbox" name="roles"
+<<<<<<< HEAD
                            th:each="role : ${role}"
                            th:value="${role.roleId}"
                            th:text="${role.roleName}"
+=======
+                           th:each="role : ${roles}"
+                           th:value="${role.getRoleId()}"
+                           th:text="${role.getRole()}"
+>>>>>>> 6435524 (first commit)
                            th:field="*{roles}"
                     />
                 </label>

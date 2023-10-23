@@ -83,28 +83,13 @@
                 <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</p>
             </td>
         </tr>
-        <tr>
-            <td>
-                <label>Select role:
-                    <input type="checkbox" name="roles"
-                           th:each="role : ${role}"
-                           th:value="${role.roleId}"
-                           th:text="${role.roleName}"
-                           th:field="*{roles}"
-                    />
-                </label>
-                <p style="color: red" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">role error</p>
-            </td>
-        </tr>
+        <br>
         <tr>
             <td>
                 <input type="submit" class="buttonEdit" value="Edit user"/>
             </td>
         </tr>
     </table>
-</form>
-<form th:action="@{/logout}">
-    <input type="submit" value="Logout"/>
 </form>
 </body>
 </html>
