@@ -1,18 +1,24 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleServices;
 import ru.kata.spring.boot_security.demo.service.UserServices;
 
+
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Set;
 
 @Controller
+@Valid
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -32,20 +38,29 @@ public class AdminController {
     }
     @GetMapping(value = "/{id}")
     public String getUserById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("id", userServices.getUserById(id));
+        model.addAttribute("user", userServices.getUserById(id));
         return "user";
     }
     @GetMapping(value = "/new")
-    public String addUser(User user, Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("role", roleServices.getAllRoles());
+    public String addUser(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("allRoles", roleServices.getAllRoles());
         return "/create";
     }
+
     @PostMapping(value = "/new")
-    public String add(User user, BindingResult bindingResult) {
+    public String add(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam List<Long> ids) {
+
+        // Checking validation exception
         if (bindingResult.hasErrors()) {
-            return REDIRECT;
+            System.out.println(user);
+            if (userServices.isUsernameNotUnique(user.getUsername())) {
+                bindingResult.rejectValue("username", "error.username", "Name has to be unique");
+            }
+            return "/admin/create";
         } else {
+            Set<Role> assignedRole = roleServices.findAllRoleId(ids);
+            user.setRoles(assignedRole);
             userServices.addUser(user);
             return REDIRECT;
         }
@@ -58,14 +73,18 @@ public class AdminController {
     @GetMapping(value = "/edit/{id}")
     public String updateUser(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userServices.getUserById(id));
-        model.addAttribute("role", roleServices.getAllRoles());
+        model.addAttribute("allRoles", roleServices.getAllRoles());
         return "/edit";
     }
     @PatchMapping(value = "/edit")
-    public String update(@ModelAttribute("user") User user, BindingResult bindingResult) {
+    public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingResult
+            , @RequestParam List<Long> ids) {
         if (bindingResult.hasErrors()) {
+             bindingResult.getAllErrors();
             return "/edit";
         } else {
+            Set<Role> assignedRole = roleServices.findAllRoleId(ids);
+            user.setRoles(assignedRole);
             userServices.updateUser(user);
             return REDIRECT;
         }

@@ -27,7 +27,7 @@
 <body>
 <h1>User</h1>
 
-<table border="1" id="cssTable">
+<table border="1" id="cssTable" th:name="id">
     <tr>
         <th th:width="50">UserId</th>
         <th th:width="120">Name</th>
@@ -45,11 +45,7 @@
     <td th:utext="${user.citizenship}">Citizenship</td>
     <td th:utext="${user.username}">Username</td>
     <td th:utext="${user.password}">Password</td>
-<<<<<<< HEAD
     <td th:each="role: ${user.getRoles()}" th:utext="${role.roleName}">role</td>
-=======
-    <td th:each="role: ${user.getRoles()}" th:utext="${role.getRole()}">role</td>
->>>>>>> 6435524 (first commit)
 
 </table>
 

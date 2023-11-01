@@ -16,6 +16,7 @@ public interface UserServices extends UserDetailsService {
     void addUser(User user);
     void updateUser(User user);
     void removeUser(Long id);
+    boolean isUsernameNotUnique(String username);
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

@@ -16,6 +16,13 @@
             color: #333;
             background-color: ivory;
         }
+        .h1 {
+            margin-bottom: auto;            /* установили растояние от заголовка до формы*/
+        }
+        .checkbox-container {
+            display: inline-block;          /* размещаем элементы в строчном порядке */
+            margin-right: 10px;             /*добавляем отступ в право между checkbox*/
+        }
         .buttonEdit {
             background: white;
             color: blue;
@@ -27,7 +34,7 @@
 </head>
 <body>
 <h1>Edit user</h1>
-<form action="#" th:method="PATCH" th:action="@{/admin/edit}" th:object="${user}">
+<form action="#" th:method="PATCH" th:action="@{/admin/edit}" th:object="${user}" class="h1">
     <table>
         <tr>
             <td>
@@ -83,13 +90,30 @@
                 <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</p>
             </td>
         </tr>
-        <br>
+        <tr>
+            <td>
+                <label>Select role:
+                    <div class="checkbox-container"
+                         th:each="role : ${allRoles}">
+                        <input type="checkbox"
+                               th:name="ids"
+                               th:value="${role.roleId}"
+                               th:id="${'role'+role.roleId}" />
+                        <label th:for="${'role'+role.roleId}" th:text="${role.roleName}"></label>
+                    </div>
+                </label>
+                <p style="color: red" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}">role error</p>
+            </td>
+        </tr>
         <tr>
             <td>
                 <input type="submit" class="buttonEdit" value="Edit user"/>
             </td>
         </tr>
     </table>
+</form>
+<form th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
 </form>
 </body>
 </html>
