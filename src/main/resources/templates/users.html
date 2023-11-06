@@ -63,7 +63,11 @@
         <td th:utext="${user.citizenship}">Citizenship</td>
         <td th:utext="${user.username}">Username</td>
         <td th:utext="${user.password}">Password</td>
-        <td th:each="role: ${user.roles}" th:text="${role.getRoleName()}">Roles</td>
+        <td>
+            <th:block th:each="role: ${user.roles}"
+                      th:text="${role.getRoleName().replace('ROLE_', ' ')}">Roles
+            </th:block>
+        </td>
         <td>
             <form th:action="@{'/admin/edit/' + ${user.userId}}">
                 <input type="submit" class="buttonEdit" value="Edit"/>

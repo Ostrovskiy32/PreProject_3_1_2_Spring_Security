@@ -45,7 +45,7 @@ public class AdminController {
     public String addUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("allRoles", roleServices.getAllRoles());
-        return "/create";
+        return "create";
     }
 
     @PostMapping(value = "/new")
@@ -57,7 +57,7 @@ public class AdminController {
             if (userServices.isUsernameNotUnique(user.getUsername())) {
                 bindingResult.rejectValue("username", "error.username", "Name has to be unique");
             }
-            return "/admin/create";
+            return "create";
         } else {
             Set<Role> assignedRole = roleServices.findAllRoleId(ids);
             user.setRoles(assignedRole);
@@ -74,14 +74,14 @@ public class AdminController {
     public String updateUser(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userServices.getUserById(id));
         model.addAttribute("allRoles", roleServices.getAllRoles());
-        return "/edit";
+        return "edit";
     }
     @PatchMapping(value = "/edit")
     public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingResult
             , @RequestParam List<Long> ids) {
         if (bindingResult.hasErrors()) {
              bindingResult.getAllErrors();
-            return "/edit";
+            return "edit";
         } else {
             Set<Role> assignedRole = roleServices.findAllRoleId(ids);
             user.setRoles(assignedRole);
