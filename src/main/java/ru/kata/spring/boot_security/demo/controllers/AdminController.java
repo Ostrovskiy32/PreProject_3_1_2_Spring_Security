@@ -66,7 +66,7 @@ public class AdminController {
             try {
                 Set<Role> assignedRole = roleServices.findAllRoleId(ids);
                 user.setRoles(assignedRole);
-                userServices.updateUser(user);
+                userServices.addUser(user);
                 return REDIRECT;
             } catch (DataIntegrityViolationException e) {
                 bindingResult.rejectValue("username", "duplicate", "This is username is already taken");

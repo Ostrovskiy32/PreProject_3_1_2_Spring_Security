@@ -63,10 +63,6 @@ public class UserServicesImpl implements UserServices, UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    @Override
-    public boolean isUsernameNotUnique(String username) {
-        return userRepository.findByUsername(username) != null;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

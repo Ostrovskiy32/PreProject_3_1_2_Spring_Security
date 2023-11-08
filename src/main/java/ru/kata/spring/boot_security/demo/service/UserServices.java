@@ -11,12 +11,17 @@ import java.util.List;
 public interface UserServices extends UserDetailsService {
 
     List<User> getAllUsers();
+
     User getUserById(Long id);
+
     User getUserByUsername(String username);
+
     void addUser(User user);
+
     void updateUser(User user);
+
     void removeUser(Long id);
-    boolean isUsernameNotUnique(String username);
+
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }
