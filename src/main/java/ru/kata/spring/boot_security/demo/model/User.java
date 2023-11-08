@@ -13,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -56,6 +57,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set <Role> roles = new HashSet<>();
 
+
     public User(String name, String surname, Byte age, String citizenship, String username, String password, Set<Role> roles) {
         this.name = name;
         this.surname = surname;
@@ -66,9 +68,11 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+
     public User() {
 
     }
+
 
     public Long getUserId() {
         return userId;

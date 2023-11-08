@@ -11,15 +11,19 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Long roleId;
+
     @Column(name = "role_name")
     private String roleName;
+
     @Transient
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
     private Set<User> userSet = new HashSet<>();
+
 
     public Role() {
 
@@ -69,6 +73,7 @@ public class Role implements GrantedAuthority {
     public int hashCode() {
         return Objects.hash(roleId, roleName, userSet);
     }
+
 
     @Override
     public String getAuthority() {
