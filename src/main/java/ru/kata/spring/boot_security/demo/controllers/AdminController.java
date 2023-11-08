@@ -100,7 +100,7 @@ public class AdminController {
             Set<Role> assignedRole = roleServices.findAllRoleId(ids);
             user.setRoles(assignedRole);
 
-            return "create";
+            return "edit";
         } else {
             try {
                 Set<Role> assignedRole = roleServices.findAllRoleId(ids);
@@ -112,7 +112,7 @@ public class AdminController {
                 model.addAttribute("allRoles", roleServices.getAllRoles());
                 Set<Role> assignedRole = roleServices.findAllRoleId(ids);
                 user.setRoles(assignedRole);
-                return "create";
+                return "edit";
             }
         }
     }
