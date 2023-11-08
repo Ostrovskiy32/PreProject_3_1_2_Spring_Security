@@ -17,31 +17,39 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
+
     @Column(name = "name")
     @NotBlank(message = "Field shouldn't empty")
+    @Pattern(regexp = "^[^\\d]*$", message = "The field must not contain numbers")
     @Size(min = 1, max =50, message = "Name must have bigger than 0, but no more than 50")
     private String name;
+
     @Column(name = "surname")
     @NotBlank(message = "Field shouldn't empty")
+    @Pattern(regexp = "^[^\\d]*$", message = "The field must not contain numbers")
     @Size(min = 1, max =50, message = "Name must have bigger than 0, but no more than 50")
     private String surname;
+
     @Column(name = "age")
     @NotNull(message = "Field shouldn't empty")
     @Min(value = 0, message = "Age cannot be less than zero")
     @Max(value = 150, message = "No one don't live that long like you)")
     private Byte age;
+
     @Column(name = "citizenship")
     @NotBlank(message = "Field shouldn't empty")
     @Size(min = 1, max =50, message = "Name must have bigger than 0, but no more than 50")
     private String citizenship;
+
     @Column(name = "username", unique = true)
     @NotBlank(message = "Field shouldn't empty")
     @Size(min = 1, max =50, message = "Name must have bigger than 0, but no more than 50")
     private String username;
+
     @Column(name = "password")
     @NotBlank(message = "Field shouldn't empty")
-    @Size(min = 1, max =50, message = "Name must have bigger than 0, but no more than 50")
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
