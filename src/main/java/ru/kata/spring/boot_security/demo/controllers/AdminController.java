@@ -62,20 +62,29 @@ public class AdminController {
             user.setRoles(assignedRole);
 
             return "create";
-        } else {
-            try {
-                Set<Role> assignedRole = roleServices.findAllRoleId(ids);
-                user.setRoles(assignedRole);
-                userServices.addUser(user);
-                return REDIRECT;
-            } catch (DataIntegrityViolationException e) {
-                bindingResult.rejectValue("username", "duplicate", "This is username is already taken");
-                model.addAttribute("allRoles", roleServices.getAllRoles());
-                Set<Role> assignedRole = roleServices.findAllRoleId(ids);
-                user.setRoles(assignedRole);
-                return "create";
-            }
         }
+
+        if (ids != null && !ids.isEmpty()) {
+            bindingResult.rejectValue("roles", "errors");
+            model.addAttribute("allRoles", roleServices.getAllRoles());
+            Set<Role> assignedRole = roleServices.findAllRoleId(ids);
+            user.setRoles(assignedRole);
+            return "create";
+        }
+
+        try {
+            Set<Role> assignedRole = roleServices.findAllRoleId(ids);
+            user.setRoles(assignedRole);
+            userServices.addUser(user);
+            return REDIRECT;
+        } catch (DataIntegrityViolationException e) {
+            bindingResult.rejectValue("username", "duplicate", "This is username is already taken");
+            model.addAttribute("allRoles", roleServices.getAllRoles());
+            Set<Role> assignedRole = roleServices.findAllRoleId(ids);
+            user.setRoles(assignedRole);
+            return "create";
+        }
+
     }
 
     @DeleteMapping(value = "/delete/{id}")
@@ -93,7 +102,7 @@ public class AdminController {
 
     @PatchMapping(value = "/edit")
     public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingResult
-            , Model model , @RequestParam List<Long> ids) {
+            , Model model, @RequestParam List<Long> ids) {
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("allRoles", roleServices.getAllRoles());
@@ -101,19 +110,28 @@ public class AdminController {
             user.setRoles(assignedRole);
 
             return "edit";
-        } else {
-            try {
-                Set<Role> assignedRole = roleServices.findAllRoleId(ids);
-                user.setRoles(assignedRole);
-                userServices.updateUser(user);
-                return REDIRECT;
-            } catch (DataIntegrityViolationException e) {
-                bindingResult.rejectValue("username", "duplicate", "This is username is already taken");
-                model.addAttribute("allRoles", roleServices.getAllRoles());
-                Set<Role> assignedRole = roleServices.findAllRoleId(ids);
-                user.setRoles(assignedRole);
-                return "edit";
-            }
+        }
+
+        if (ids != null && !ids.isEmpty()) {
+            bindingResult.rejectValue("roles", "errors");
+            model.addAttribute("allRoles", roleServices.getAllRoles());
+            Set<Role> assignedRole = roleServices.findAllRoleId(ids);
+            user.setRoles(assignedRole);
+            return "edit";
+        }
+
+        try {
+            Set<Role> assignedRole = roleServices.findAllRoleId(ids);
+            user.setRoles(assignedRole);
+            userServices.updateUser(user);
+            return REDIRECT;
+        } catch (DataIntegrityViolationException e) {
+            bindingResult.rejectValue("username", "duplicate", "This is username is already taken");
+            model.addAttribute("allRoles", roleServices.getAllRoles());
+            Set<Role> assignedRole = roleServices.findAllRoleId(ids);
+            user.setRoles(assignedRole);
+            return "edit";
         }
     }
 }
+

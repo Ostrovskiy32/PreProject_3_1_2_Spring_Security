@@ -37,7 +37,7 @@ public class InitFile {
         adminRole.add(roleService.getRoleById(1L));
         userRole.add(roleService.getRoleById(2L));
 
-        userService.updateUser(new User("Igor", "Ostrovsky", (byte) 52, "Russian", "admin", "$2a$12$KPdGDctM2qJTep1jLsxSGu6JT7pTvYcGz6bt1mhJjtj5cZ3yy/th2", adminRole));
-        userService.updateUser(new User("Peter", "Petrov", (byte) 25, "Russian", "user", "$2a$12$H.z3up/SlBAaEDL2DQVgOOo85hoaWknYd.ER6c8B7Hmbl5fQocKJm", userRole));
+        userService.addUser(new User("Igor", "Ostrovsky", (byte) 52, "Russian", "admin", "$2a$12$KPdGDctM2qJTep1jLsxSGu6JT7pTvYcGz6bt1mhJjtj5cZ3yy/th2", adminRole));
+        userService.addUser(new User("Peter", "Petrov", (byte) 25, "Russian", "user", "$2a$12$H.z3up/SlBAaEDL2DQVgOOo85hoaWknYd.ER6c8B7Hmbl5fQocKJm", userRole));
     }
 }

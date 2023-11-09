@@ -50,7 +50,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     @NotBlank(message = "Field shouldn't empty")
     private String password;
-
+    @NotEmpty(message = "The field should not be empty set any role for a user")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
