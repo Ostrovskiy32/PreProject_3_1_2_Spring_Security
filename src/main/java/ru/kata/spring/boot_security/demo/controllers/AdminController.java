@@ -102,7 +102,7 @@ public class AdminController {
 
     @PatchMapping(value = "/edit")
     public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingResult
-            , Model model, @RequestParam List<Long> ids) {
+            , Model model, @RequestParam(value = "ids", required = false) List<Long> ids) {
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("allRoles", roleServices.getAllRoles());
@@ -112,8 +112,8 @@ public class AdminController {
             return "edit";
         }
 
-        if (ids != null && !ids.isEmpty()) {
-            bindingResult.rejectValue("roles", "errors");
+        if (ids == null || ids.isEmpty()) {
+            bindingResult.rejectValue("roles", "errors","No roles selected");
             model.addAttribute("allRoles", roleServices.getAllRoles());
             Set<Role> assignedRole = roleServices.findAllRoleId(ids);
             user.setRoles(assignedRole);
