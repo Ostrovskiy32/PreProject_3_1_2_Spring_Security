@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import net.bytebuddy.implementation.bind.annotation.Empty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -50,7 +51,8 @@ public class User implements UserDetails {
     @Column(name = "password")
     @NotBlank(message = "Field shouldn't empty")
     private String password;
-    @NotEmpty(message = "The field should not be empty set any role for a user")
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

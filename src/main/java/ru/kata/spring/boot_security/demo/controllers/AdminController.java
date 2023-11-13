@@ -53,7 +53,7 @@ public class AdminController {
 
     @PostMapping(value = "/new")
     public String add(@Valid @ModelAttribute("user") User user, BindingResult bindingResult
-            , Model model, @RequestParam List<Long> ids) {
+            , Model model, @RequestParam(value = "ids", required = false) List<Long> ids) {
         // Checking validation exception
         if (bindingResult.hasErrors()) {
 
@@ -64,8 +64,8 @@ public class AdminController {
             return "create";
         }
 
-        if (ids != null && !ids.isEmpty()) {
-            bindingResult.rejectValue("roles", "errors");
+        if ( ids == null || ids.isEmpty()) {
+            bindingResult.rejectValue("roles", "error.roles.empty", "No roles selected");
             model.addAttribute("allRoles", roleServices.getAllRoles());
             Set<Role> assignedRole = roleServices.findAllRoleId(ids);
             user.setRoles(assignedRole);
