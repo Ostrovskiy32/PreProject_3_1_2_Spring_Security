@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.repositories;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class UserRepositoryHm implements UserRepository {
     @PersistenceContext
     EntityManager entityManager;
+
 
     @Override
     public List<User> findAll() {
